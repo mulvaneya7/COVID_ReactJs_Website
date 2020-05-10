@@ -17,12 +17,18 @@ const CountryPicker = ({ handleCountryChange }) => {
     }, [setFetchedCountries]);
 
     return (
-        <FormControl className={styles.formControl}>
-            <NativeSelect defaultValue="" onChange={(e) => handleCountryChange(e.target.value)}>
-                <option value="">Global</option>
+ 
+         
+         <div className={styles.cpselect}>
+             <h3 className={styles.cpHeading}>COVID-19 cases by country</h3>
+             <p className={styles.cpHeadingText}>The figures below are based on data from the https://covid19.mathdro.id/api. These numbers are updated daily but may differ from other sources
+             due to differences in reporting times.  </p>
+             <span> In  </span>
+             <select className={styles.formControl} defaultValue="" onChange={(e) => handleCountryChange(e.target.value)}>
+                 <option value="">Global</option>
                 {fetchedCountries.map((country, i) => <option key={i} value={country}>{country}</option>)}
-            </NativeSelect>
-        </FormControl>
+            </select> <span> , Number of active confirmed COVID-19 cases, Recovered and deaths </span>
+        </div>
     )
 }
 

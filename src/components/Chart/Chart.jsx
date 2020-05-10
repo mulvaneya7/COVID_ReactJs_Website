@@ -58,8 +58,25 @@ const Chart = ( { data: { confirmed, recovered, deaths }, country }) => {
 
     return (
         <div className={styles.container}>
-            {country ? barChart : lineChart }
+            {/* {country ? barChart : lineChart } */}
+
+            {barChart}
+
+            <div className={styles.cpselect}>
+             <h3 className={styles.cpHeading}>Global Covid-19 Infected, Deaths growth rates</h3>
+             <p className={styles.cpHeadingText}>The figures below are based on data from the https://covid19.mathdro.id/api. These numbers are updated daily but may differ from other sources
+             due to differences in reporting times.  </p>
+           
         </div>
+
+    <div className={styles.container}>
+        
+        
+        {lineChart}</div>
+            
+        </div>
+       
+
     )
 }
 

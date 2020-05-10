@@ -1,11 +1,39 @@
 .container {
-    display: flex;
+    display: inline-block;
     justify-content: center;
     width: 85%;
+    margin:80px;
+    
 }
 
 @media (max-width: 770px) {
     .container {
         width: 100%;
     }
+}
+
+.cpselect{
+ 
+    color: #0c0c0c;
+   max-width: 800px;
+    margin: 0 111px;
+    margin-top: 40px;
+}
+.cpHeading{
+    font-size:20px;
+    line-height: 24px;
+   margin-block-start: 1em;
+   margin-block-end: 1em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+    text-align: left;
+}
+.cpHeadingText{
+    font-size: 13px;
+    color:#8c8c8c;
+    display:block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }

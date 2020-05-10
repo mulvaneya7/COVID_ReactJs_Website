@@ -1,4 +1,39 @@
 .formControl {
-    width: 30%;
-    margin-bottom: 30px !important;
+    height: 28px;
+    padding-top: .1em;
+    padding-bottom: 0;
+    margin:0 3px;
+    display: inline-block;
+    font-size: 16px;
+
+    line-height: 1.3;
+    
+    border: 1px solid #0c0c0c;
+    border-radius: .5em;
+    
+}
+.cpselect{
+ 
+    color: #0c0c0c;
+   max-width: 800px;
+    margin: 0 111px;
+    margin-top: 40px;
+}
+.cpHeading{
+    font-size:20px;
+    line-height: 24px;
+   margin-block-start: 1em;
+   margin-block-end: 1em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+    text-align: left;
+}
+.cpHeadingText{
+    font-size: 13px;
+    color:#8c8c8c;
+    display:block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }

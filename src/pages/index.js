@@ -1,8 +1,8 @@
 /******/
 
 
-import { Cards, Chart, CountryPicker } from 'components';
-import styles from './App.module.css';
+import { Cards, Chart, CountryPicker, DashboardHeader,TestCaseChart } from 'components';
+
 import { fetchData } from '../api';
 
 /*******/
@@ -17,12 +17,14 @@ import Layout from 'components/Layout';
 import Container from 'components/Container';
 import Map from 'components/Map';
 
-import gatsby_astronaut from 'assets/images/gatsby-astronaut.jpg';
+
+
 
 const LOCATION = {
   lat: 0,
   lng: 0
 };
+
 const CENTER = [LOCATION.lat, LOCATION.lng];
 const DEFAULT_ZOOM = 2;
 
@@ -34,15 +36,18 @@ const IndexPage = () => {
 
   
 
-  
+  const [currentTime,setCurrent] =useState();
+
   const [data2,updateData] = useState([]);
   const [country2,updateCountry] = useState([]);
+  const [testCase, updateTest] = useState();
+  const [other, updateOther] = useState([]);
     useEffect(()=>{
    
       const any = async () => {
         const fetchedData=  await fetchData();
       
-       // console.log(fetchedData);
+       
         updateData(fetchedData);
        }
       
@@ -51,15 +56,17 @@ const IndexPage = () => {
     
     any();
     
+       setCurrent(new Date().toLocaleString());
 
-
-     
+       
      
       console.log("usereffect is running");
+
+
       
     },[]);
   
-   // console.log(data2);
+
   /**
    * mapEffect
    * @description Fires a callback once the page renders
@@ -68,7 +75,7 @@ const IndexPage = () => {
 
   async function mapEffect({ leafletElement: map } = {}) {
     let response;
-//https://corona.lmao.ninja/v2/countries
+
     try {
       response = await axios.get('https://corona.lmao.ninja/v2/countries');
      
@@ -77,13 +84,38 @@ const IndexPage = () => {
       return; 
     }
     const { data = [] } = response;
+  //  updateOther(data);
+  //   const modifiedData = data.map((dailyData) => ({
+  //     testCase: dailyData.testsPerOneMillion,
+  //     country:dailyData.country
+      
+    
+  //   }));
+    
+  //   const TopData = modifiedData.map((dailyData) => ({
+  //     MaxCase: parseInt(dailyData.testCase,10) > 50000 ? dailyData.testCase : null,
+  //    country: parseInt(dailyData.testCase,10) > 50000 ? dailyData.country : null
+      
+    
+  //   }));
+    
+  //   const filtered = TopData.filter(function (el) {
+  //     return el.MaxCase != null;
+  //   });
+  
+  // updateTest(filtered);
+
+
     const hasData = Array.isArray(data) & data.length > 0;
     if(!hasData) return;
 
     const geoJson = {
       type: 'FeatureCollection',
       features: data.map((country = {}) => {
+
         const {countryInfo = {}} = country;
+  
+     
         const {lat, long: lng } = countryInfo;
         return {
           type: 'Feature',
@@ -98,6 +130,7 @@ const IndexPage = () => {
 
       })
     }
+
     const geoJsonLayers = new L.GeoJSON(geoJson, {
       pointToLayer: (feature = {}, latlng) => {
         const {properties = {} } = feature;
@@ -120,7 +153,7 @@ const IndexPage = () => {
         if ( updated ) {
           updatedFormatted = new Date(updated).toLocaleString();
         }
-
+      
         const html = `
         <span class="icon-marker">
           <span class="icon-marker-tooltip">
@@ -149,6 +182,10 @@ const IndexPage = () => {
     geoJsonLayers.addTo(map)
   }
 
+
+  
+
+  
   const mapSettings = {
     center: CENTER,
     defaultBaseMap: 'OpenStreetMap',
@@ -162,16 +199,20 @@ const IndexPage = () => {
   
   
     const fetchedData = await fetchData(country2);
-  
-    updateData(fetchedData);
     updateCountry(country2);
-   
+    updateData(fetchedData);
+  
+    
   
   
 }
 
 
-  
+
+
+
+
+
 
 
   return (
@@ -181,13 +222,16 @@ const IndexPage = () => {
       <Helmet>
         <title>Home Page</title>
       </Helmet>
-
+    <DashboardHeader currentTime={currentTime}/>
       <Map {...mapSettings}/>
        
-      <Cards data={data2}/>
-      <CountryPicker  handleCountryChange={handleCountryChange}/>
-           <Chart data={data2} country={country2} />
+
+   <CountryPicker  handleCountryChange={handleCountryChange}/>
+   <Cards data={data2}/>
+   <Chart data={data2} country={country2}/> 
+    {/* <TestCaseChart  Topdata= {testCase} /> */}
       <Container type="content" className="text-center home-start">
+
       
 
         <p className="note">Note: Gatsby CLI required globally for the above command</p>
